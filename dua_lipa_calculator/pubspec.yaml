@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.3+3
 
 environment:
   sdk: ^3.10.3
@@ -62,6 +62,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/
+    - assets/fonts/
     - assets/sounds/1.m4a
     - assets/sounds/2.m4a
     - assets/sounds/3.m4a
@@ -73,6 +75,8 @@ flutter:
     - assets/sounds/9.m4a
     - assets/sounds/0.m4a
     - assets/sounds/done.m4a
+    - assets/adilipa.jpg
+    - assets/adilipa_raw.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -85,11 +89,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: Dancing_Script
+      fonts:
+        - asset: assets/fonts/DancingScript-Regular.ttf
+          weight: 700
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

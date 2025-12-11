@@ -61,9 +61,9 @@ class DuaLipaCalculator extends StatelessWidget {
           headlineLarge: TextStyle(
             fontSize: 48,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.pink,
           ),
-          bodyLarge: TextStyle(fontSize: 24, color: Colors.white),
+          bodyLarge: TextStyle(fontSize: 24, color: Colors.green),
         ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.pinkAccent,
@@ -220,29 +220,33 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            Text(
-              "Calcu-Lipa",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey.shade300,
-              ),
-            ),
-            const SizedBox(height: 10),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      _getDisplayText(),
-                      style: Theme.of(context).textTheme.headlineLarge,
-                      textAlign: TextAlign.right,
-                    ),
-                  ],
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/adilipa_raw.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Text(
+                          _getDisplayText(),
+                          style: Theme.of(context).textTheme.headlineLarge!
+                              .copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -283,7 +287,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       height: 90,
       child: TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: Colors.grey.shade800,
+          backgroundColor: Colors.white,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(0)),
           ),
@@ -291,7 +295,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         onPressed: () => _onButtonPressed(label),
         child: Text(
           label,
-          style: TextStyle(fontSize: 28, color: Colors.grey.shade300),
+          style: TextStyle(fontSize: 28, color: Colors.red.shade900),
         ),
       ),
     );
@@ -312,7 +316,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             height: 60,
             child: TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: Colors.grey.shade300,
+                backgroundColor: Colors.pinkAccent,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(0)),
                 ),
@@ -320,7 +324,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               onPressed: () => openVideo(entry.value),
               child: Text(
                 entry.key,
-                style: const TextStyle(fontSize: 14, color: Color(0xFF093244)),
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Dancing_Script',
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
