@@ -94,7 +94,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     // Check if the queue is empty
     if (_playbackQueue.isEmpty) {
       _isPlaying = false;
-      print('Queue finished.');
+      debugPrint('Queue finished.');
       return;
     }
 
@@ -102,7 +102,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     _isPlaying = true;
     final nextFileName = _playbackQueue.removeAt(0);
 
-    print('Playing: $nextFileName');
+    debugPrint('Playing: $nextFileName');
 
     // 2. Determine the Source
     final source = AssetSource(nextFileName);
@@ -116,34 +116,37 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   void playSoundInQueue(String digit) async {
     if (digit == '+' || digit == '-') return;
     _playbackQueue.add('sounds/$digit.m4a');
+    debugPrint("Added $digit.m4a to the queue");
     if (!_isPlaying) {
       _playNextInQueue();
     }
     // await _player.play(AssetSource('sounds/$digit.m4a')); // Basic play
   }
 
-  void interruptAndPlay(String newAudioName) async {
+  void interruptAndPlay(String digit) async {
     // 1. Clear the queue (so nothing plays after the new sound)
     _playbackQueue.clear();
+
+    _isPlaying = false;
 
     // 2. Stop any current sound (this resets the player state)
     await _player.stop();
 
-    // 3. Set the state flag to ensure _playNextInQueue doesn't run unexpectedly
-    _isPlaying = false;
-
-    // 4. Play the new sound immediately
-    await _player.play(AssetSource('sounds/$newAudioName.m4a'));
-
     // Note: We don't update the queue or _isPlaying here because this is an interrupt,
     // and the onPlayerComplete listener will handle the transition back to idle
     // after the interrupt sound is done.
-    print('Interrupted sequence to play: $newAudioName.m4a');
+    debugPrint('Interrupted sequence to play: $digit.m4a');
+
+    playSoundInQueue(digit);
   }
 
   void _onButtonPressed(String value) {
     setState(() {
-      playSoundInQueue(value);
+      if (_operator.isEmpty) {
+        if (!(value == '+' || value == '-')) interruptAndPlay(value);
+      } else {
+        playSoundInQueue(value);
+      }
 
       if (_isResultShown) {
         _firstNumber = '';
@@ -180,6 +183,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       } else {
         res = num1 - num2;
       }
+      playSoundInQueue("done");
       setState(() {
         _result = res.toString();
         _isResultShown = true;

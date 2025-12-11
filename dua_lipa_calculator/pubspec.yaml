@@ -64,6 +64,15 @@ flutter:
   assets:
     - assets/sounds/1.m4a
     - assets/sounds/2.m4a
+    - assets/sounds/3.m4a
+    - assets/sounds/4.m4a
+    - assets/sounds/5.m4a
+    - assets/sounds/6.m4a
+    - assets/sounds/7.m4a
+    - assets/sounds/8.m4a
+    - assets/sounds/9.m4a
+    - assets/sounds/0.m4a
+    - assets/sounds/done.m4a
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
