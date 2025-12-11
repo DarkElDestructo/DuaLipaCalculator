@@ -21,14 +21,12 @@ final Map<String, String> duaVideos = {
   "=": "https://www.youtube.com/watch?v=3DcoC8p9az8", // Dance The Night
 };
 
-
 Future<void> openVideo(String url) async {
   final uri = Uri.parse(url);
   if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
     throw 'No se pudo abrir $url';
   }
 }
-
 
 void main() {
   runApp(const DuaLipaCalculator());
@@ -50,10 +48,7 @@ class DuaLipaCalculator extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
-          bodyLarge: TextStyle(
-            fontSize: 24,
-            color: Colors.white,
-          ),
+          bodyLarge: TextStyle(fontSize: 24, color: Colors.white),
         ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.pinkAccent,
@@ -102,8 +97,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     // Nota: Para algo más robusto puedes usar 'math_expressions'.
     final sanitized = exp.replaceAll("×", "*").replaceAll("÷", "/");
     return double.parse(
-      Function.apply((String e) => double.parse(evalSimple(e)), [sanitized])
-          .toString(),
+      Function.apply((String e) => double.parse(evalSimple(e)), [
+        sanitized,
+      ]).toString(),
     );
   }
 
@@ -112,9 +108,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     try {
       return exp.isEmpty
           ? "0"
-          : exp.contains('+') || exp.contains('-') || exp.contains('*') || exp.contains('/')
-              ? (double.parse(exp.replaceAll('*', '×'))).toString()
-              : exp;
+          : exp.contains('+') ||
+                exp.contains('-') ||
+                exp.contains('*') ||
+                exp.contains('/')
+          ? (double.parse(exp.replaceAll('*', '×'))).toString()
+          : exp;
     } catch (_) {
       return "0";
     }
@@ -123,10 +122,22 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   Widget build(BuildContext context) {
     final buttons = [
-      "7", "8", "9", "÷",
-      "4", "5", "6", "×",
-      "1", "2", "3", "-",
-      "0", ".", "C", "+",
+      "7",
+      "8",
+      "9",
+      "÷",
+      "4",
+      "5",
+      "6",
+      "×",
+      "1",
+      "2",
+      "3",
+      "-",
+      "0",
+      ".",
+      "C",
+      "+",
       "=",
     ];
 
@@ -140,7 +151,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Colors.pinkAccent.shade100,
+                color: Colors.grey.shade300,
               ),
             ),
             const SizedBox(height: 10),
@@ -150,9 +161,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(expression, style: Theme.of(context).textTheme.bodyLarge),
+                    Text(
+                      expression,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                     const SizedBox(height: 10),
-                    Text(result, style: Theme.of(context).textTheme.headlineLarge),
+                    Text(
+                      result,
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
                   ],
                 ),
               ),
@@ -174,14 +191,23 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          isAction ? Colors.pinkAccent : Colors.blueAccent.shade700,
+                      backgroundColor: isAction
+                          ? Color(0xFF093244)
+                          : Colors.grey.shade300,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ),
                     ),
                     onPressed: () => onButtonPress(label),
-                    child: Text(label, style: const TextStyle(fontSize: 24)),
+                    child: Text(
+                      label,
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: isAction
+                            ? Colors.grey.shade300
+                            : Color(0xFF093244),
+                      ),
+                    ),
                   ),
                 );
               },
