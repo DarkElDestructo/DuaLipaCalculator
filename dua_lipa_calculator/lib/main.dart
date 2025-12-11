@@ -22,6 +22,20 @@ final Map<String, String> duaVideos = {
   "=": "https://www.youtube.com/watch?v=3DcoC8p9az8", // Dance The Night
 };
 
+final Map<String, int> keySoundDelay = {
+  "sounds/0.m4a": 1600,
+  "sounds/1.m4a": 600,
+  "sounds/2.m4a": 900,
+  "sounds/3.m4a": 900,
+  "sounds/4.m4a": 800,
+  "sounds/5.m4a": 800,
+  "sounds/6.m4a": 1100,
+  "sounds/7.m4a": 1100,
+  "sounds/8.m4a": 700,
+  "sounds/9.m4a": 1000,
+  "sounds/done.m4a": 800,
+};
+
 Future<void> openVideo(String url) async {
   final uri = Uri.parse(url);
   if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
@@ -110,7 +124,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     // 3. Start the playback
     // Note: We don't use 'await' here because we don't want to block
     // the UI thread while the audio is playing.
-    _player.play(source);
+    await _player.setSource(source);
+    await _player.seek(Duration(milliseconds: keySoundDelay[nextFileName]!));
+    await _player.resume();
   }
 
   void playSoundInQueue(String digit) async {
